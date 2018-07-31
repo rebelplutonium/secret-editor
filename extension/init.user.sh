@@ -10,17 +10,17 @@ TEMP=$(mktemp -d) &&
     echo "${GPG2_OWNER_TRUST}" > ${TEMP}/gpg2-owner-trust &&
     gpg2 --batch --import-ownertrust ${TEMP}/gpg2-owner-trust &&
     rm -rf ${TEMP} &&
-    pass init ${GPG_KEY_ID} &&
+    pass init $(gpg --list-keys | grep "^pub" | sed -e "s#^.*/##" -e "s# .*\$##") &&
     pass git init &&
     pass git config user.name "${COMMITTER_NAME}" &&
     pass git config user.email "${COMMITTER_EMAIL}" &&
     pass git remote add origin origin:${ORIGIN_ORGANIZATION}/${ORIGIN_REPOSITORY}.git &&
     echo "${ORIGIN_ID_RSA}" > /home/user/.ssh/origin_id_rsa &&
-    ssh-keyscan -p ${HOST_PORT} "${HOST_NAME}" > /home/user/.ssh/known_hosts &&
+    ssh-keyscan -p ${ORIGIN_PORT} "${ORIGIN_NAME}" > /home/user/.ssh/known_hosts &&
     (cat > /home/user/.ssh/config <<EOF
 Host origin
-HostName ${HOST_NAME}
-Port ${HOST_PORT}
+HostName ${ORIGIN_NAME}
+Port ${ORIGIN_PORT}
 User git
 IdentityFile ~/.ssh/origin_id_rsa
 EOF
