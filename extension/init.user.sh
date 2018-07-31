@@ -12,8 +12,8 @@ TEMP=$(mktemp -d) &&
     rm -rf ${TEMP} &&
     pass init ${GPG_KEY_ID} &&
     pass git init &&
-    pass git config user.name "${USER_NAME}" &&
-    pass git config user.email "${USER_EMAIL}" &&
+    pass git config user.name "${COMMITTER_NAME}" &&
+    pass git config user.email "${COMMITTER_EMAIL}" &&
     pass git remote add origin origin:${ORIGIN_ORGANIZATION}/${ORIGIN_REPOSITORY}.git &&
     echo "${ORIGIN_ID_RSA}" > /home/user/.ssh/origin_id_rsa &&
     ssh-keyscan -p ${HOST_PORT} "${HOST_NAME}" > /home/user/.ssh/known_hosts &&
