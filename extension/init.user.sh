@@ -19,7 +19,7 @@ TEMP=$(mktemp -d) &&
     ssh-keyscan -p ${ORIGIN_PORT} "${ORIGIN_NAME}" > /home/user/.ssh/known_hosts &&
     (cat > /home/user/.ssh/config <<EOF
 Host origin
-HostName ${ORIGIN_NAME}
+HostName ${ORIGIN_HOST}
 Port ${ORIGIN_PORT}
 User git
 IdentityFile ~/.ssh/origin_id_rsa
