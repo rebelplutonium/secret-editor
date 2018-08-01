@@ -16,7 +16,7 @@ TEMP=$(mktemp -d) &&
     pass git config user.email "${COMMITTER_EMAIL}" &&
     pass git remote add origin origin:${ORIGIN_ORGANIZATION}/${ORIGIN_REPOSITORY}.git &&
     echo "${ORIGIN_ID_RSA}" > /home/user/.ssh/origin_id_rsa &&
-    ssh-keyscan -p ${ORIGIN_PORT} "${ORIGIN_NAME}" > /home/user/.ssh/known_hosts &&
+    ssh-keyscan -p ${ORIGIN_PORT} "${ORIGIN_HOST}" > /home/user/.ssh/known_hosts &&
     (cat > /home/user/.ssh/config <<EOF
 Host origin
 HostName ${ORIGIN_HOST}
